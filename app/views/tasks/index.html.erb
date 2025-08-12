@@ -8,6 +8,9 @@
                 <%= button_to "Edit", edit_task_path(task), method: :get %>
             </div>
             <div style="display: inline-block;">
+                <%= button_to "Complete", complete_task_path(task), method: :post %>
+            </div>            
+            <div style="display: inline-block;">
                 <%= button_to "Delete", task, method: :delete, data: { turbo_confirm: "Are you sure?" }  %>
             </div>
         </li>
@@ -15,3 +18,14 @@
 </ol>
 <br>
 <%= link_to 'Add Task', new_task_path  %>
+
+<h1>Completed Tasks</h1>
+<ol>
+    <% @completed_tasks.each do |task| %>
+        <li>
+            <%= task.name %>
+            <%= link_to 'open', task_path(task) %>
+        </li>
+    <% end %>
+</ol>
+<br>

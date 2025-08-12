@@ -1,7 +1,8 @@
 class TasksController < ApplicationController
-    before_action :set_task, only: %i[show edit update destroy]
+    before_action :set_task, only: %i[show edit update destroy complete]
     def index
-        @tasks = Task.all
+        @tasks = Task.where(completed: false)
+        @completed_tasks = Task.where(completed: true)
     end
 
     def new
@@ -32,6 +33,11 @@ class TasksController < ApplicationController
 
     def destroy
         @task.destroy
+        redirect_to tasks_path
+    end
+
+    def complete
+        @task.update(completed: true)
         redirect_to tasks_path
     end
 
